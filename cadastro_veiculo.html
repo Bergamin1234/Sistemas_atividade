@@ -42,9 +42,16 @@
             
             const marca = document.getElementById('marca').value;
             const modelo = document.getElementById('modelo').value;
+            const ano = document.getElementById('ano').value;
             const placa = document.getElementById('placa').value;
             const divMensagem = document.getElementById('mensagemVeiculo');
             
+            // Cria o objeto do veículo e salva no localStorage simulando um banco de dados
+            const veiculo = { marca, modelo, ano, placa };
+            let veiculos = JSON.parse(localStorage.getItem('veiculos')) || [];
+            veiculos.push(veiculo);
+            localStorage.setItem('veiculos', JSON.stringify(veiculos));
+
             // Exibe o alerta de sucesso do Bootstrap
             divMensagem.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Veículo <strong>${marca} ${modelo}</strong> (Placa: ${placa}) cadastrado com sucesso!
