@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Veículos</title>
+    <!-- CSS do Bootstrap via CDN para estilização -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Veículos Cadastrados</h2>
+            <a href="cadastro_veiculo.html" class="btn btn-primary">Novo Cadastro</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Ano</th>
+                        <th scope="col">Placa</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaVeiculos">
+                    <!-- Os dados serão inseridos aqui via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Mensagem caso não haja nenhum veículo -->
+        <div id="mensagemVazia" class="alert alert-info d-none" role="alert">
+            Nenhum veículo cadastrado no momento.
+        </div>
+    </div>
+
+    <!-- Script do Bootstrap -->
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const veiculos = JSON.parse(localStorage.getItem('veiculos')) || [];
+            const tbody = document.getElementById('tabelaVeiculos');
+            const mensagemVazia = document.getElementById('mensagemVazia');
+
+            if (veiculos.length === 0) {
+                mensagemVazia.classList.remove('d-none');
+            } else {
+                veiculos.forEach(veiculo => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${veiculo.marca}</td>
+                        <td>${veiculo.modelo}</td>
+                        <td>${veiculo.ano}</td>
+                        <td>${veiculo.placa}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
